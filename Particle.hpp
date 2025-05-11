@@ -16,12 +16,36 @@ class Particle : public sf::Drawable
     }
 
 public:
-    Particle(const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y)
+    Particle(const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y, const sf::Color &color)
         : pos{pos_x, pos_y}, vel{vel_x, vel_y}
     {
         s.setRadius(4);
         s.setPosition(pos);
-        s.setFillColor(sf::Color::White);
+        s.setFillColor(color);
+    }
+
+    Particle(const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y, float value)
+        : pos{pos_x, pos_y}, vel{vel_x, vel_y}
+    {
+        s.setRadius(4);
+        s.setPosition(pos);
+        if (value < 0.0f)
+            value = 0;
+        if (value > 1.0f)
+            value = 1;
+        int r = 0, g = 0, b = 0;
+
+        if (value < 0.5f)
+        {
+            b = 255 * (1.0f - 2 * value);
+            g = 255 * 2 * value;
+        }
+        else
+        {
+            g = 255 * (2.0f - 2 * value);
+            r = 255 * (2 * value - 1);
+        }
+        s.setFillColor(sf::Color(r, g, b));
     }
 
     void update_physics(const GravitySource &src)

@@ -18,7 +18,7 @@ public:
     GravitySource(const float &pos_x, const float &pos_y, const float &strength)
         : pos{pos_x, pos_y}, strength{strength}
     {
-        s.setRadius(4);
+        s.setRadius(8);
         s.setPosition(pos);
         s.setFillColor(sf::Color::White);
     }
