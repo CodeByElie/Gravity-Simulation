@@ -1,8 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "Gravitysource.hpp"
 #include "Particle.hpp"
 #include <vector>
-#include <random>
 
 int main()
 {
@@ -11,17 +9,10 @@ int main()
 
     window.setFramerateLimit(60);
 
-    GravitySource source(400, 400, 8000);
-
     std::vector<Particle> particles;
-    int nbParticles = 2000;
-
-    particles.push_back(Particle{200, 200, 3, 0, 0.5});
-
-    for (int i = 0; i < nbParticles; i++)
-    {
-        particles.push_back(Particle{200, 200, 3 + (i * 2. / nbParticles), 0, i / (nbParticles * 1.0f)});
-    }
+    particles.push_back(Particle{1, 200, 200, 4, 0, 0, 1});
+    particles.push_back(Particle{3, 400, 400, 0, 0, 10000, 0});
+    particles.push_back(Particle{2, 200, 700, 1, 0, 0, 1});
 
     while (window.isOpen())
     {
@@ -35,10 +26,9 @@ int main()
 
         for (auto &particle : particles)
         {
-            particle.update_physics(source);
+            particle.update_physics(particles);
             window.draw(particle);
         }
-        window.draw(source);
 
         window.display();
     }
