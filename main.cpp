@@ -5,14 +5,19 @@
 int main()
 {
 
-    sf::RenderWindow window(sf::VideoMode({800, 800}), "Gravity Simulation");
+    sf::RenderWindow window(sf::VideoMode({600, 600}), "Gravity Simulation");
 
     window.setFramerateLimit(60);
 
     std::vector<Particle> particles;
-    particles.push_back(Particle{1, 200, 200, 4, 0, 0, 1});
-    particles.push_back(Particle{3, 400, 400, 0, 0, 10000, 0});
-    particles.push_back(Particle{2, 200, 700, 1, 0, 0, 1});
+    particles.push_back(Particle{1, 300, 300, 0, 0, pow(10,4), sf::Color::White});
+    double G = 6.674;
+    double speed =sqrt(G*pow(10,-7)/100)*100000;
+    particles.push_back(Particle{2, 300, 200, speed, 0,0, 0.5});
+    speed =sqrt(G*pow(10,-7)/200)*100000;
+    particles.push_back(Particle{2, 300, 600, -speed, 0,0, 0.25});
+    speed =sqrt(G*pow(10,-7)/150)*100000;
+    particles.push_back(Particle{2, 300, 500, speed, 0,0, 0.75});
 
     while (window.isOpen())
     {

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
+
 class Particle : public sf::Drawable
 {
     int id;
@@ -18,7 +19,7 @@ class Particle : public sf::Drawable
     }
 
 public:
-    Particle(const int &id,const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y,const float &strength, const sf::Color &color)
+    Particle(const int &id, const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y, const float &strength, const sf::Color &color)
         : id{id}, pos{pos_x, pos_y}, vel{vel_x, vel_y}, strength{strength}
     {
         s.setRadius(4);
@@ -26,7 +27,7 @@ public:
         s.setFillColor(color);
     }
 
-    Particle(const int &id,const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y,const float &strength, float value)
+    Particle(const int &id, const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y, const float &strength, float value)
         : id{id}, pos{pos_x, pos_y}, vel{vel_x, vel_y}, strength{strength}
     {
         s.setRadius(4);
@@ -68,23 +69,24 @@ public:
     void update_physics(const std::vector<Particle> &particles)
 
     {
-        for (auto &particle : particles) if (id!=particle.get_id())
-        {
-            float dist_x = particle.get_pos().x - pos.x;
-            float dist_y = particle.get_pos().y - pos.y;
+        for (auto &particle : particles)
+            if (id != particle.get_id())
+            {
+                float dist_x = particle.get_pos().x - pos.x;
+                float dist_y = particle.get_pos().y - pos.y;
 
-            float dist = sqrt(dist_x * dist_x + dist_y * dist_y);
-            float inv_dist = 1.f / dist;
+                float dist = sqrt(dist_x * dist_x + dist_y * dist_y);
+                float inv_dist = 1.f / dist;
 
-            float norm_x = inv_dist * dist_x;
-            float norm_y = inv_dist * dist_y;
+                float norm_x = inv_dist * dist_x;
+                float norm_y = inv_dist * dist_y;
 
-            float dx = norm_x * particle.get_strength() * inv_dist * inv_dist;
-            float dy = norm_y * particle.get_strength() * inv_dist * inv_dist;
+                float dx = norm_x * particle.get_strength() * inv_dist * inv_dist;
+                float dy = norm_y * particle.get_strength() * inv_dist * inv_dist;
 
-            vel.x += dx;
-            vel.y += dy;
-        }
+                vel.x += dx;
+                vel.y += dy;
+            }
 
         pos.x += vel.x;
         pos.y += vel.y;
