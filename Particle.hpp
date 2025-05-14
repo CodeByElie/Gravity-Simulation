@@ -26,6 +26,7 @@ public:
         s.setPosition(pos);
         s.setFillColor(color);
     }
+    Particle(const Particle &p);
 
     Particle(const int &id, const float &pos_x, const float &pos_y, const float &vel_x, const float &vel_y, const float &strength, float value)
         : id{id}, pos{pos_x, pos_y}, vel{vel_x, vel_y}, strength{strength}
